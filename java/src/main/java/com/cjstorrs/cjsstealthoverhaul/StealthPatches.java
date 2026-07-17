@@ -2,7 +2,6 @@ package com.cjstorrs.cjsstealthoverhaul;
 
 import me.zed_0xff.zombie_buddy.Patch;
 import zombie.characters.IsoGameCharacter;
-import zombie.characters.IsoPlayer;
 import zombie.characters.IsoZombie;
 import zombie.iso.IsoLightSource;
 import zombie.iso.IsoMovingObject;
@@ -18,12 +17,12 @@ public final class StealthPatches {
             @Patch.Argument(0) IsoMovingObject other,
             @Patch.Argument(1) boolean forced
         ) {
-            SpottingContext.begin(zombie, other instanceof IsoPlayer ? (IsoPlayer)other : null, forced);
+            StealthRuntime.beginSpotting(zombie, other, forced);
         }
 
         @Patch.OnExit(onThrowable = Throwable.class)
         public static void exit() {
-            SpottingContext.clear();
+            StealthRuntime.endSpotting();
         }
     }
 
@@ -34,15 +33,7 @@ public final class StealthPatches {
             @Patch.This IsoGameCharacter character,
             @Patch.Return(readOnly = false) float returnValue
         ) {
-            SpottingContext context = SpottingContext.current();
-            if (context == null || context.player != character) {
-                return;
-            }
-            returnValue *= StealthMath.darknessMultiplier(
-                context.lightLevel(),
-                StealthConfig.darknessReduction,
-                context.distanceRamp
-            );
+            returnValue = StealthRuntime.adjustSneakSpotModifier(character, returnValue);
         }
     }
 
@@ -53,15 +44,7 @@ public final class StealthPatches {
             @Patch.This IsoZombie zombie,
             @Patch.Return(readOnly = false) float returnValue
         ) {
-            SpottingContext context = SpottingContext.current();
-            if (context == null || context.zombie != zombie || returnValue >= 0.999F) {
-                return;
-            }
-            returnValue *= StealthMath.coverMultiplier(
-                context.lightLevel(),
-                StealthConfig.coverReduction,
-                context.distanceRamp
-            );
+            returnValue = StealthRuntime.adjustDirectionalCover(zombie, returnValue);
         }
     }
 
@@ -74,7 +57,7 @@ public final class StealthPatches {
     public static class TrackAddedLight {
         @Patch.OnEnter
         public static void enter(@Patch.Argument(0) IsoLightSource light) {
-            LightSensor.observeAddedLight(light);
+            StealthRuntime.observeAddedLight(light);
         }
     }
 
@@ -87,8 +70,7 @@ public final class StealthPatches {
     public static class TrackRemovedLight {
         @Patch.OnEnter
         public static void enter(@Patch.Argument(0) IsoLightSource light) {
-            LightSensor.observeRemovedLight(light);
+            StealthRuntime.observeRemovedLight(light);
         }
     }
 }
-
