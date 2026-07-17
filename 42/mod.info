@@ -1,0 +1,11 @@
+name=CJS Stealth Overhaul
+id=cjsStealthOverhaul
+author=CJ Storrs
+description=Rebalances visual stealth using the light around the survivor and directional cover.
+poster=poster.png
+require=\ZombieBuddy
+javaJarFile=media/java/cjsStealthOverhaul.jar
+javaPkgName=com.cjstorrs.cjsstealthoverhaul
+ZBVersionMin=1.0.0
+versionMin=42.19
+
