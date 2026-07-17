@@ -1,0 +1,14 @@
+Sandbox_EN = {
+    Sandbox_CjsStealth = "CJS Stealth Overhaul",
+    Sandbox_CjsStealth_DarknessReduction = "Maximum darkness reduction (%)",
+    Sandbox_CjsStealth_DarknessReduction_tooltip = "Maximum reduction applied to a visual spotting roll in pitch darkness at full effect distance. Default: 50%.",
+    Sandbox_CjsStealth_CoverReduction = "Maximum extra directional-cover reduction (%)",
+    Sandbox_CjsStealth_CoverReduction_tooltip = "Extra reduction when vanilla confirms that cover is correctly positioned between the crouched survivor and zombie. Default: 15%.",
+    Sandbox_CjsStealth_MinimumDistance = "No-bonus distance (tiles)",
+    Sandbox_CjsStealth_MinimumDistance_tooltip = "At or inside this distance the mod gives no darkness or cover bonus. Default: 3 tiles.",
+    Sandbox_CjsStealth_FullEffectDistance = "Full-effect distance (tiles)",
+    Sandbox_CjsStealth_FullEffectDistance_tooltip = "The bonus fades in until this distance. Default: 6 tiles.",
+    Sandbox_CjsStealth_CorrectCatseyeLight = "Ignore Cat's Eye personal light in darkness sensor",
+    Sandbox_CjsStealth_CorrectCatseyeLight_tooltip = "Prevents Cat's Eye in the Dark's personal blue visibility light from being interpreted as environmental illumination by this mod. Real flashlights and world lights still count.",
+}
+

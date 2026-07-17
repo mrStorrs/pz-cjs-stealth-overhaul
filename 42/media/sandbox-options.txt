@@ -1,0 +1,45 @@
+VERSION = 1,
+
+option CjsStealth.DarknessReduction
+{
+    type = integer,
+    min = 0,
+    max = 75,
+    default = 50,
+    page = CjsStealth, translation = CjsStealth_DarknessReduction,
+}
+
+option CjsStealth.CoverReduction
+{
+    type = integer,
+    min = 0,
+    max = 30,
+    default = 15,
+    page = CjsStealth, translation = CjsStealth_CoverReduction,
+}
+
+option CjsStealth.MinimumDistance
+{
+    type = integer,
+    min = 1,
+    max = 6,
+    default = 3,
+    page = CjsStealth, translation = CjsStealth_MinimumDistance,
+}
+
+option CjsStealth.FullEffectDistance
+{
+    type = integer,
+    min = 4,
+    max = 12,
+    default = 6,
+    page = CjsStealth, translation = CjsStealth_FullEffectDistance,
+}
+
+option CjsStealth.CorrectCatseyeLight
+{
+    type = boolean,
+    default = true,
+    page = CjsStealth, translation = CjsStealth_CorrectCatseyeLight,
+}
+
