@@ -17,6 +17,15 @@ final class LightSensor {
 
     private LightSensor() {}
 
+    static float getRenderedLightLevel(IsoPlayer player) {
+        if (player == null || player.getCurrentSquare() == null) {
+            return 1.0F;
+        }
+        int playerIndex = Math.max(0, Math.min(SAMPLES.length - 1, player.getIndex()));
+        ColorInfo rendered = player.getCurrentSquare().lighting[playerIndex].lightInfo();
+        return StealthMath.clamp((rendered.r + rendered.g + rendered.b) / 3.0F, 0.0F, 1.0F);
+    }
+
     static float getCorrectedLightLevel(IsoPlayer player) {
         if (player == null || player.getCurrentSquare() == null) {
             return 1.0F;

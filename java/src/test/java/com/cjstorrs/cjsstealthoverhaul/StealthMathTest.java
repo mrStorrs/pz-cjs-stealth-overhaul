@@ -19,6 +19,11 @@ public final class StealthMathTest {
             * StealthMath.coverMultiplier(0.0F, 0.15F, 1.0F);
         assertNear(0.425F, combined, "darkness and cover remain bounded");
 
+        assertEquals(50, StealthMath.relativeBonusPercent(0.50F), "half spotting chance");
+        assertEquals(0, StealthMath.relativeBonusPercent(1.0F), "neutral spotting chance");
+        assertEquals(-20, StealthMath.relativeBonusPercent(1.20F), "spotting penalty");
+        assertEquals(99, StealthMath.relativeBonusPercent(0.0F), "display cap");
+
         System.out.println("StealthMathTest: all assertions passed");
     }
 
@@ -27,5 +32,10 @@ public final class StealthMathTest {
             throw new AssertionError(label + ": expected " + expected + ", got " + actual);
         }
     }
-}
 
+    private static void assertEquals(int expected, int actual, String label) {
+        if (expected != actual) {
+            throw new AssertionError(label + ": expected " + expected + ", got " + actual);
+        }
+    }
+}

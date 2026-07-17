@@ -27,9 +27,13 @@ public final class StealthMath {
         return darknessMultiplier(lightLevel, maximumReduction, distanceRamp);
     }
 
+    public static int relativeBonusPercent(float combinedSpottingMultiplier) {
+        float reduction = 1.0F - Math.max(0.0F, combinedSpottingMultiplier);
+        return Math.round(clamp(reduction, -1.0F, 0.99F) * 100.0F);
+    }
+
     private static float interpolateFromOne(float target, float amount) {
         float clampedAmount = clamp(amount, 0.0F, 1.0F);
         return 1.0F + (target - 1.0F) * clampedAmount;
     }
 }
-

@@ -1,19 +1,18 @@
 require "ISUI/ISPanel"
 
 local options = PZAPI.ModOptions:create("cjsStealthOverhaul", "CJS Stealth Overhaul")
-local showIndicator = options:addTickBox("showLightIndicator", "Show darkness / light indicator", true)
+local showIndicator = options:addTickBox("showLightIndicator", "Show relative stealth indicator", true)
 
 local indicator
 
 local CjsLightIndicator = ISPanel:derive("CjsLightIndicator")
 
 function CjsLightIndicator:new(player)
-    local width = 44
+    local width = 52
     local height = 44
     local instance = ISPanel.new(self, getCore():getScreenWidth() - 300, 12, width, height)
     instance.player = player
-    instance.lightLevel = 1
-    instance.reduction = 0
+    instance.bonus = 0
     instance.lastSample = 0
     instance.background = false
     instance.moveWithMouse = false
@@ -28,8 +27,7 @@ function CjsLightIndicator:updateSample()
     self.lastSample = now
 
     if CjsStealthOverhaul and self.player and self.player:getCurrentSquare() then
-        self.lightLevel = CjsStealthOverhaul.getLightLevel(self.player)
-        self.reduction = CjsStealthOverhaul.getDarknessReductionPercent(self.player)
+        self.bonus = CjsStealthOverhaul.getRelativeStealthBonusPercent(self.player)
     end
 end
 
@@ -44,9 +42,9 @@ function CjsLightIndicator:prerender()
     local red
     local green
     local blue
-    if self.lightLevel <= 0.25 then
+    if self.bonus >= 50 then
         red, green, blue = 0.25, 0.78, 0.45
-    elseif self.lightLevel <= 0.60 then
+    elseif self.bonus >= 20 then
         red, green, blue = 0.92, 0.72, 0.24
     else
         red, green, blue = 0.90, 0.30, 0.24
@@ -55,7 +53,8 @@ function CjsLightIndicator:prerender()
     self:drawRect(0, 0, self.width, self.height, 0.82, 0.04, 0.06, 0.07)
     self:drawRectBorder(0, 0, self.width, self.height, 0.85, 0.58, 0.64, 0.61)
     self:drawRect(5, 5, self.width - 10, self.height - 10, 0.88, red, green, blue)
-    self:drawTextCentre(tostring(self.reduction) .. "%", self.width / 2, 13, 0.05, 0.07, 0.06, 1.0, UIFont.Small)
+    local prefix = self.bonus > 0 and "+" or ""
+    self:drawTextCentre(prefix .. tostring(self.bonus) .. "%", self.width / 2, 13, 0.05, 0.07, 0.06, 1.0, UIFont.Small)
 end
 
 local function configureJavaPatch()

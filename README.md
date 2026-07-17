@@ -12,7 +12,7 @@ Default balance:
 - An already-acquired zombie target receives no bonus.
 - Cat's Eye in the Dark's personal blue light is removed from this mod's environmental light reading. Flashlights and ordinary world lighting still count.
 
-The top-screen status icon shows the full-distance darkness reduction currently available: green is dark, amber is mixed light, and red is bright.
+The top-screen status icon shows an approximate, full-distance relative stealth bonus. It combines rendered light (including flashlights), movement, Sneak skill, Conspicuous/Inconspicuous, the mod's corrected darkness bonus, and nearby cover potential. Green is a strong bonus, amber is moderate, and red is weak or negative. Zombie-specific facing, exact distance, and cover direction are intentionally excluded so the indicator stays lightweight and never scans the zombie list.
 
 ## Build
 
